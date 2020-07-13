@@ -103,7 +103,6 @@ router.post('/login', async (req, res) => {
             token,
             user: {
                 id: user._id,
-                email: user.email,
                 display: user.displayName
             }
         });
@@ -150,5 +149,20 @@ router.post("/tokenIsValid", async (req, res) => {
     }
 
 })
+
+router.get('/', auth, async (req, res) => {
+    try {
+        const {
+            displayName,
+            _id
+        } = await User.findById(req.user);
+        res.json({
+            displayName,
+            id: _id
+        }).status(200);
+    } catch (error) {
+        console.error(error);
+    }
+});
 
 module.exports = router;
