@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
 
         //Validation
         if (!email || !password || !passwordCheck) {
-            return res.status(400).json({
+            return res.status(418).json({
                 msg: "Missing Fields"
             });
         }
@@ -25,18 +25,18 @@ router.post('/register', async (req, res) => {
             email: email
         });
         if (existingUser) {
-            return res.status(400).json({
+            return res.status(418).json({
                 msg: "A User with that email already exist..."
             });
         }
 
         if (password.length < 5) {
-            return res.status(400).json({
+            return res.status(418).json({
                 msg: "Password needs to be at least 6 characters"
             });
         }
         if (password !== passwordCheck) {
-            return res.status(400).json({
+            return res.status(418).json({
                 msg: "Passwords do not match"
             });
         }
@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
 
         //Validation
         if (!email || !password) {
-            return res.status(400).json({
+            return res.status(418).json({
                 msg: "Missing Fields"
             });
         }
@@ -81,14 +81,14 @@ router.post('/login', async (req, res) => {
             email: email
         });
         if (!user) {
-            return res.status(400).json({
+            return res.status(418).json({
                 msg: "Email is not registered"
             });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({
+            return res.status(418).json({
                 msg: "Invalid Credentials..."
             });
         }
