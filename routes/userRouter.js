@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
 
         //Validation
         if (!email || !password) {
-            return res.status(418).json({
+            return res.status(200).json({
                 msg: "Missing Fields"
             });
         }
@@ -81,14 +81,14 @@ router.post('/login', async (req, res) => {
             email: email
         });
         if (!user) {
-            return res.status(418).json({
+            return res.status(200).json({
                 msg: "Email is not registered"
             });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(418).json({
+            return res.status(200).json({
                 msg: "Invalid Credentials..."
             });
         }
